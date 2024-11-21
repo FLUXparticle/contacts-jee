@@ -1,0 +1,7 @@
+<resources>
+    <Resource id="ContactsDataSource" type="DataSource">
+        JdbcDriver org.h2.Driver
+        JdbcUrl jdbc:h2:~/contacts
+        JtaManaged true
+    </Resource>
+</resources>
