@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <f:metadata>
+        <!-- Load the contact based on the ID parameter from the URL -->
+        <f:viewParam name="id" value="#{contactBean.contactId}" />
+        <f:event type="preRenderView" listener="#{contactBean.loadContact}" />
+    </f:metadata>
+
+    <h:head>
+        <title>Edit Contact - #{contactBean.contact.name}</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:messages/>
+
+            <!-- hidden field to store the contact ID and Version -->
+            <h:inputHidden value="#{contactBean.contact.id}" />
+            <h:inputHidden value="#{contactBean.contact.version}" />
+
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:outputLabel for="id" value="ID:" />
+                <h:outputText id="id" value="#{contactBean.contact.id}" />
+
+                <h:outputLabel for="version" value="Version:" />
+                <h:outputText id="version" value="#{contactBean.contact.version}" />
+
+                <h:outputLabel for="name" value="Name:" />
+                <h:inputText id="name" value="#{contactBean.contact.name}" required="true" label="Name" />
+
+                <h:outputLabel for="email" value="Email:" />
+                <h:inputText id="email" value="#{contactBean.contact.email}" required="true" label="Email" />
+
+                <h:outputLabel for="address" value="Address:" />
+                <h:inputTextarea id="address" value="#{contactBean.contact.address}" rows="3" cols="30" label="Address" />
+            </h:panelGrid>
+
+            <h:commandButton value="Update" action="#{contactBean.updateContact}" />
+            <h:commandButton value="Cancel" action="contacts?faces-redirect=true" />
+        </h:form>
+    </h:body>
+</f:view>
+</html>
