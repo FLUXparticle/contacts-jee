@@ -1,0 +1,33 @@
+<server description="contacts-jee development server">
+    <featureManager>
+        <platform>jakartaee-11.0</platform>
+        <feature>beanValidation</feature>
+        <feature>cdi</feature>
+        <feature>data</feature>
+        <feature>enterpriseBeansLite</feature>
+        <feature>expressionLanguage</feature>
+        <feature>faces</feature>
+        <feature>jdbc</feature>
+        <feature>jsonb</feature>
+        <feature>localConnector-1.0</feature>
+        <feature>persistence</feature>
+        <feature>restfulWS</feature>
+        <feature>servlet</feature>
+    </featureManager>
+
+    <httpEndpoint id="defaultHttpEndpoint"
+                  host="*"
+                  httpPort="8080"
+                  httpsPort="8443"/>
+
+    <library id="h2JDBCLib">
+        <fileset dir="${shared.resource.dir}" includes="h2-*.jar"/>
+    </library>
+
+    <dataSource id="DefaultDataSource" jndiName="jdbc/contactsjee">
+        <jdbcDriver libraryRef="h2JDBCLib" javax.sql.DataSource="org.h2.jdbcx.JdbcDataSource"/>
+        <properties URL="jdbc:h2:mem:contactsjee;DB_CLOSE_DELAY=-1" user="sa" password=""/>
+    </dataSource>
+
+    <webApplication location="contacts-jee.war" contextRoot="/"/>
+</server>

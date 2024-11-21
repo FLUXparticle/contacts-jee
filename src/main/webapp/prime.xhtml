@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="jakarta.faces.html">
+<h:head>
+    <title>Prime Contact List</title>
+    <link rel="stylesheet" href="#{resource['primefaces-nova-light/theme.css']}" />
+</h:head>
+<h:body>
+    <h:form id="form">
+        <p:messages id="messages" autoUpdate="true" closable="true" />
+
+        <p:panelGrid columns="3" style="margin-top:10px;">
+            <p:outputLabel for="search" value="Search:" />
+            <p:inputText id="search" value="#{primeContactBean.searchQuery}"/>
+            <p:commandButton value="Search" update="contactTable messages"/>
+        </p:panelGrid>
+
+        <p:dataTable id="contactTable" var="contact" value="#{primeContactBean.lazyModel}"
+                     paginator="true" rows="10" lazy="true"
+                     emptyMessage="No contacts found."
+                     style="margin-top:20px;">
+
+            <p:ajax event="page" update="@this" />
+            <p:ajax event="sort" update="@this" />
+
+            <p:column headerText="ID" sortBy="#{contact.id}">
+                <h:outputText value="#{contact.id}" />
+            </p:column>
+            <p:column headerText="Name" sortBy="#{contact.name}">
+                <h:outputText value="#{contact.name}" />
+            </p:column>
+            <p:column headerText="Email" sortBy="#{contact.email}">
+                <h:outputText value="#{contact.email}" />
+            </p:column>
+            <p:column headerText="Address" sortBy="#{contact.address}">
+                <h:outputText value="#{contact.address}" />
+            </p:column>
+        </p:dataTable>
+    </h:form>
+</h:body>
+</html>
