@@ -54,4 +54,11 @@ public class ContactService {
         return primeContactQueryService.getContactsPaginated(first, pageSize, sortField, sortDirection, searchQuery);
     }
 
+    public void updateMultipleContacts(List<Contact> contacts, String newAddress) {
+        for (Contact contact : contacts) {
+            contact.setAddress(newAddress); // Aktualisierung vornehmen
+            updateContact(contact);
+        }
+    }
+
 }
