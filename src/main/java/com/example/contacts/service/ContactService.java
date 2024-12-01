@@ -42,4 +42,11 @@ public class ContactService {
         contactDAO.delete(id);
     }
 
+    public void updateMultipleContacts(List<Contact> contacts, String newAddress) {
+        for (Contact contact : contacts) {
+            contact.setAddress(newAddress); // Aktualisierung vornehmen
+            updateContact(contact);
+        }
+    }
+
 }

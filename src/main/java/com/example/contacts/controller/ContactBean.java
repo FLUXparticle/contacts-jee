@@ -80,6 +80,28 @@ public class ContactBean implements Serializable {
         return "contacts?faces-redirect=true";
     }
 
+    public String bulkUpdateContacts() {
+        try {
+            List<Contact> contacts = getContacts();
+            contactService.updateMultipleContacts(contacts, newAddress);
+            addInfoMessage("Contacts updated successfully.");
+            return "contacts?faces-redirect=true";
+        } catch (Exception e) {
+            Throwable cause = e;
+
+            while (cause != null) {
+                LOGGER.info("ContactBean.bulkUpdateContacts: cause = {}", cause.toString());
+                if (cause instanceof OptimisticLockException) {
+                    addErrorMessage(cause.getMessage());
+                    return null; // Auf der gleichen Seite bleiben
+                }
+                cause = cause.getCause();
+            }
+
+            throw e;
+        }
+    }
+
     // Getter und Setter
     public Long getContactId() {
         return contactId;
