@@ -46,5 +46,12 @@
             </h:form>
         </h:column>
     </h:dataTable>
+
+    <h:form>
+        <h:outputLabel for="newAddress" value="New Address" />
+        <h:inputText id="newAddress" value="#{contactBean.newAddress}" />
+
+        <h:commandButton value="Update Contacts" action="#{contactBean.bulkUpdateContacts}" />
+    </h:form>
 </h:body>
 </html>
