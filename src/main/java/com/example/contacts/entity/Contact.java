@@ -1,6 +1,7 @@
 package com.example.contacts.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.io.*;
 
@@ -12,8 +13,15 @@ public class Contact implements Serializable {
     @GeneratedValue
     private Long id;
 
+    @NotBlank(message = "Name ist erforderlich.")
+    @Size(max = 20, message = "Maximal 20 Zeichen")
     private String name;
+
+    @NotBlank(message = "E-Mail ist erforderlich.")
+    @Email(message = "Gültige E-Mail-Adresse")
     private String email;
+
+    @Size(max = 20, message = "Maximal 20 Zeichen")
     private String address;
 
     // Konstruktoren
