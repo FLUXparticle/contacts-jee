@@ -34,6 +34,7 @@ public class ContactBean implements Serializable {
         LOGGER.info("loadContact({})", contactId);
         if (contactId != null) {
             contact = contactService.getContact(contactId);
+            LOGGER.info("version = {}", contact.getVersion());
         }
     }
 
@@ -49,12 +50,27 @@ public class ContactBean implements Serializable {
     public String updateContact() {
         LOGGER.info("updateContact()");
 
-        contactService.updateContact(contact);
+        try {
+            contactService.updateContact(contact);
 
-        addInfoMessage("Contact updated successfully.");
-        contacts = null; // Liste aktualisieren
+            addInfoMessage("Contact updated successfully.");
+            contacts = null; // Liste aktualisieren
 
-        return "contacts?faces-redirect=true";
+            return "contacts?faces-redirect=true";
+        } catch (Exception e) {
+            Throwable cause = e;
+
+            while (cause != null) {
+                LOGGER.info("ContactBean.updateContact: cause = {}", cause.toString());
+                if (cause instanceof OptimisticLockException) {
+                    addErrorMessage(cause.getMessage());
+                    return null; // Auf der gleichen Seite bleiben
+                }
+                cause = cause.getCause();
+            }
+
+            throw e;
+        }
     }
 
     public String deleteContact(Long id) {
