@@ -24,6 +24,9 @@ public class Contact implements Serializable {
     @Size(max = 20, message = "Maximal 20 Zeichen")
     private String address;
 
+    @Version
+    private Long version;
+
     // Konstruktoren
     public Contact() {
         // empty
@@ -36,6 +39,7 @@ public class Contact implements Serializable {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
+                ", version=" + version +
                 '}';
     }
 
@@ -70,6 +74,14 @@ public class Contact implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
 }
