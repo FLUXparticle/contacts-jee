@@ -2,14 +2,14 @@ package com.example.contacts.service;
 
 import com.example.contacts.dao.*;
 import com.example.contacts.entity.*;
-import jakarta.ejb.*;
+import jakarta.enterprise.context.*;
 import jakarta.inject.*;
 import jakarta.persistence.*;
 import org.slf4j.*;
 
 import java.util.*;
 
-@Stateless
+@ApplicationScoped
 public class ContactService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ContactService.class);
