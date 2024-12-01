@@ -1,12 +1,13 @@
 package com.example.contacts.dao;
 
 import com.example.contacts.entity.*;
-import jakarta.ejb.*;
+import jakarta.enterprise.context.*;
 import jakarta.persistence.*;
+import jakarta.transaction.*;
 
 import java.util.*;
 
-@Stateless
+@ApplicationScoped
 public class ContactDAO {
 
     @PersistenceContext(unitName = "ContactsPU")
@@ -21,10 +22,12 @@ public class ContactDAO {
         return em.find(Contact.class, id);
     }
 
+    @Transactional
     public void save(Contact contact) {
         em.persist(contact);
     }
 
+    @Transactional
     public void update(Contact contact) {
         em.merge(contact);
     }
