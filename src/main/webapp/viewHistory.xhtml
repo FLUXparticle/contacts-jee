@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <f:metadata>
+        <!-- Load the contact based on the ID parameter from the URL -->
+        <f:viewParam name="id" value="#{transactionBean.contactId}" />
+        <f:event type="preRenderView" listener="#{transactionBean.loadTransactions}" />
+    </f:metadata>
+
+    <h:head>
+        <title>Transaction History</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:messages/>
+        </h:form>
+
+        <h:dataTable value="#{transactionBean.transactions}" var="transaction" border="1" cellpadding="5">
+            <h:column>
+                <f:facet name="header">Timestamp</f:facet>
+                #{transaction.timestamp}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                #{transaction.action}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Details</f:facet>
+                #{transaction.details}
+            </h:column>
+        </h:dataTable>
+
+        <h:link value="Back to Contacts" outcome="contacts" />
+    </h:body>
+</f:view>
+</html>

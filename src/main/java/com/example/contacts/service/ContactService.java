@@ -20,6 +20,9 @@ public class ContactService {
     @Inject
     private ContactDAO contactDAO;
 
+    @Inject
+    private TransactionDAO transactionDAO;
+
     public List<Contact> getAllContacts() {
         return contactDAO.findAll();
     }
@@ -30,16 +33,20 @@ public class ContactService {
 
     public void saveContact(Contact contact) {
         contactDAO.save(contact);
+        transactionDAO.save(new Transaction(contact, "CREATE", contact.toString()));
     }
 
     public void updateContact(Contact contact) throws OptimisticLockException {
         LOGGER.info("updateContact({})", contact);
         contactDAO.update(contact);
         emailService.sendEmail(contact.getEmail());
+        transactionDAO.save(new Transaction(contact, "UPDATE", contact.toString()));
     }
 
     public void deleteContact(Long id) {
+        Contact contact = getContact(id);
         contactDAO.delete(id);
+        transactionDAO.save(new Transaction(contact, "DELETE", ""));
     }
 
     public void updateMultipleContacts(List<Contact> contacts, String newAddress) {
@@ -51,6 +58,10 @@ public class ContactService {
 
     public List<Contact> searchContacts(String searchQuery) {
         return contactDAO.search(searchQuery);
+    }
+
+    public List<Transaction> getTransactionsByContactId(Long contactId) {
+        return transactionDAO.findByContactId(contactId);
     }
 
 }

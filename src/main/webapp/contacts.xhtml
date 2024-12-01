@@ -51,6 +51,12 @@
                                onclick="return confirm('Are you sure you want to delete this contact?');"/>
             </h:form>
         </h:column>
+        <h:column>
+            <f:facet name="header">History</f:facet>
+            <h:link value="View History" outcome="viewHistory">
+                <f:param name="id" value="#{contact.id}" />
+            </h:link>
+        </h:column>
     </h:dataTable>
 
     <h:form>
