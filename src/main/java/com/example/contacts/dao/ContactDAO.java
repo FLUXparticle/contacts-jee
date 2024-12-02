@@ -47,4 +47,33 @@ public class ContactDAO {
         return query.getResultList();
     }
 
+    public int countContacts(String searchQuery) {
+        String queryStr = "SELECT COUNT(c) FROM Contact c";
+        if (searchQuery != null && !searchQuery.isEmpty()) {
+            queryStr += " WHERE c.name LIKE :query OR c.email LIKE :query OR c.address LIKE :query";
+        }
+        TypedQuery<Long> query = em.createQuery(queryStr, Long.class);
+        if (searchQuery != null && !searchQuery.isEmpty()) {
+            query.setParameter("query", "%" + searchQuery + "%");
+        }
+        return query.getSingleResult().intValue();
+    }
+
+    public List<Contact> findContactsPaginated(int first, int pageSize, String sortField, String sortDirection, String searchQuery) {
+        String queryStr = "SELECT c FROM Contact c";
+        if (searchQuery != null && !searchQuery.isEmpty()) {
+            queryStr += " WHERE c.name LIKE :query OR c.email LIKE :query OR c.address LIKE :query";
+        }
+        if (sortField != null) {
+            queryStr += " ORDER BY c." + sortField + " " + sortDirection;
+        }
+        TypedQuery<Contact> query = em.createQuery(queryStr, Contact.class);
+        if (searchQuery != null && !searchQuery.isEmpty()) {
+            query.setParameter("query", "%" + searchQuery + "%");
+        }
+        query.setFirstResult(first);
+        query.setMaxResults(pageSize);
+        return query.getResultList();
+    }
+
 }

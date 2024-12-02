@@ -91,6 +91,14 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- PrimeFaces -->
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>12.0.0</version>
+            <classifier>jakarta</classifier>
+        </dependency>
+
         <!-- SLF4J v2 API -->
         <dependency>
             <groupId>org.slf4j</groupId>
