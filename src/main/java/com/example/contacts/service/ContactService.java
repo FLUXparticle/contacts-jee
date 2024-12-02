@@ -61,4 +61,8 @@ public class ContactService {
         }
     }
 
+    public List<Contact> searchContacts(String searchQuery) {
+        return contactDAO.search(searchQuery);
+    }
+
 }
