@@ -64,4 +64,12 @@ public class ContactService {
         return transactionDAO.findByContactId(contactId);
     }
 
+    public int countContacts(String searchQuery) {
+        return contactDAO.countContacts(searchQuery);
+    }
+
+    public List<Contact> getContactsPaginated(int first, int pageSize, String sortField, String sortDirection, String searchQuery) {
+        return contactDAO.findContactsPaginated(first, pageSize, sortField, sortDirection, searchQuery);
+    }
+
 }
