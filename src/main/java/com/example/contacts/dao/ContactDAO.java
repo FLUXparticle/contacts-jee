@@ -39,4 +39,12 @@ public class ContactDAO {
         }
     }
 
+    public List<Contact> search(String queryStr) {
+        TypedQuery<Contact> query = em.createQuery(
+            "SELECT c FROM Contact c WHERE c.name LIKE :query OR c.email LIKE :query OR c.address LIKE :query",
+            Contact.class);
+        query.setParameter("query", "%" + queryStr + "%");
+        return query.getResultList();
+    }
+
 }
