@@ -11,6 +11,12 @@
         <h:commandButton value="Add New Contact" action="addContact?faces-redirect=true"/>
     </h:form>
 
+    <h:form>
+        <h:outputLabel for="search" value="Search:"/>
+        <h:inputText id="search" value="#{contactBean.searchQuery}"/>
+        <h:commandButton value="Search" action="#{contactBean.searchContacts}"/>
+    </h:form>
+
     <h:dataTable value="#{contactBean.contacts}" var="contact" border="1" cellpadding="5">
         <h:column>
             <f:facet name="header">ID</f:facet>
@@ -53,5 +59,6 @@
 
         <h:commandButton value="Update Contacts" action="#{contactBean.bulkUpdateContacts}" />
     </h:form>
+
 </h:body>
 </html>

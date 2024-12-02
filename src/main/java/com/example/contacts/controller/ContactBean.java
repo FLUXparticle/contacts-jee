@@ -29,6 +29,8 @@ public class ContactBean implements Serializable {
 
     private String newAddress;
 
+    private String searchQuery;
+
     // Methode, um den Kontakt anhand der ID zu laden
     public void loadContact() {
         LOGGER.info("loadContact({})", contactId);
@@ -102,6 +104,14 @@ public class ContactBean implements Serializable {
         }
     }
 
+    public void searchContacts() {
+        if (searchQuery == null || searchQuery.isEmpty()) {
+            contacts = contactService.getAllContacts();
+        } else {
+            contacts = contactService.searchContacts(searchQuery);
+        }
+    }
+
     // Getter und Setter
     public Long getContactId() {
         return contactId;
@@ -132,6 +142,14 @@ public class ContactBean implements Serializable {
 
     public void setNewAddress(String newAddress) {
         this.newAddress = newAddress;
+    }
+
+    public String getSearchQuery() {
+        return searchQuery;
+    }
+
+    public void setSearchQuery(String searchQuery) {
+        this.searchQuery = searchQuery;
     }
 
     private static void addInfoMessage(String message) {
