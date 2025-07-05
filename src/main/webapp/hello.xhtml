@@ -9,5 +9,11 @@
 
     <h:outputText value="Hello, #{helloBean.name}!" />
 
+    <h:form id="nameForm">
+        <h:outputLabel for="name" value="Name:"/>
+        <h:inputText id="name" value="#{helloBean.name}" required="true" label="Name"/>
+        <h:commandButton value="Update"/>
+    </h:form>
+
 </h:body>
 </html>
