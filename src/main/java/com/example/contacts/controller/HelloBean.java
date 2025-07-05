@@ -1,5 +1,7 @@
 package com.example.contacts.controller;
 
+import com.example.contacts.dao.*;
+import com.example.contacts.entity.*;
 import jakarta.enterprise.context.*;
 import jakarta.inject.*;
 
@@ -7,33 +9,33 @@ import java.io.*;
 import java.util.*;
 
 @Named
-@SessionScoped
+@RequestScoped
 public class HelloBean implements Serializable {
 
-   private String name = "World";
-    private List<String> names = new ArrayList<>();
+    @Inject
+    private NameDAO nameDAO;
 
-   // getter/setter
-
-   public String getName() {
-       return name;
-   }
-
-   public void setName(String name) {
-       this.name = name;
-   }
-
+    private String name = "World";
 
     // actions
     public void submit() {
         if (name != null && !name.isEmpty()) {
-            names.add(name);
+            Name nameEntity = new Name(name);
+            nameDAO.save(nameEntity);
         }
     }
 
     // getter/setter
-    public List<String> getNames() {
-        return names;
+    public List<Name> getNames() {
+        return nameDAO.findAll();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 }
