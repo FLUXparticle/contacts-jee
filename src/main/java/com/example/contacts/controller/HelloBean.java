@@ -1,13 +1,14 @@
 package com.example.contacts.controller;
 
-import jakarta.enterprise.context.*;
+import jakarta.faces.view.*;
 import jakarta.inject.*;
 
+import java.io.*;
 import java.util.*;
 
 @Named
-@RequestScoped
-public class HelloBean {
+@ViewScoped
+public class HelloBean implements Serializable {
 
     private String name = "World";
 
