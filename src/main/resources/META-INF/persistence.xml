@@ -9,6 +9,7 @@
         <jta-data-source>ContactsDataSource</jta-data-source>
 
         <class>com.example.contacts.entity.Contact</class>
+        <class>com.example.contacts.entity.Name</class>
 
         <properties>
             <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create" />

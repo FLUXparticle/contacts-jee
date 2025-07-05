@@ -1,29 +1,33 @@
 package com.example.contacts.controller;
 
-import jakarta.faces.view.*;
+import com.example.contacts.dao.*;
+import com.example.contacts.entity.*;
+import jakarta.enterprise.context.*;
 import jakarta.inject.*;
 
 import java.io.*;
 import java.util.*;
 
 @Named
-@ViewScoped
+@RequestScoped
 public class HelloBean implements Serializable {
 
-    private String name = "World";
+    @Inject
+    private NameDAO nameDAO;
 
-    private List<String> names = new ArrayList<>();
+    private String name = "World";
 
     // actions
     public void submit() {
         if (name != null && !name.isEmpty()) {
-            names.add(name);
+            Name nameEntity = new Name(name);
+            nameDAO.save(nameEntity);
         }
     }
 
     // getter/setter
-    public List<String> getNames() {
-        return names;
+    public List<Name> getNames() {
+        return nameDAO.findAll();
     }
 
     public String getName() {

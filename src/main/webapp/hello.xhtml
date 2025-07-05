@@ -10,8 +10,8 @@
 
     <h:panelGroup rendered="#{not empty helloBean.names}">
         <ul>
-            <ui:repeat value="#{helloBean.names}" var="name">
-                <li>#{name}</li>
+            <ui:repeat value="#{helloBean.names}" var="nameEntity">
+                <li>#{nameEntity.name}</li>
             </ui:repeat>
         </ul>
     </h:panelGroup>
