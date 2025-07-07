@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+>
+<h:head>
+    <title>Repeat</title>
+</h:head>
+<h:body>
+
+    <h:form id="form1">
+        <h:outputLabel for="input" value="Eingabe:"/>
+        <h:inputText id="input" value="#{repeatBean.input}" label="Eingabe"/>
+        <h:commandButton value="Update" action="#{repeatBean.submit}">
+            <f:ajax execute="@form" render="@all"/>
+        </h:commandButton>
+    </h:form>
+
+    <h:form id="form2">
+        <h:outputLabel for="output" value="Ausgabe:"/>
+        <h:inputText id="output" value="#{repeatBean.output}" label="Ausgabe"/>
+        <h:commandButton value="Update">
+        </h:commandButton>
+    </h:form>
+
+</h:body>
+</html>
