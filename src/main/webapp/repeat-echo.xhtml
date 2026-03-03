@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Repeat Echo</title>
+</h:head>
+<h:body>
+    <h:form id="upperForm">
+        <h:inputText id="upperInput" value="#{repeatEchoBean.upperText}" />
+        <h:commandButton value="Oben senden" action="#{repeatEchoBean.submitUpper}">
+            <f:ajax execute="@form" render=":lowerForm:lowerInput" />
+        </h:commandButton>
+    </h:form>
+
+    <h:form id="lowerForm">
+        <h:inputText id="lowerInput" value="#{repeatEchoBean.lowerText}" />
+        <h:commandButton value="Unten senden" action="#{repeatEchoBean.submitLower}">
+            <f:ajax execute="@form" render=":upperForm:upperInput" />
+        </h:commandButton>
+    </h:form>
+</h:body>
+</html>
