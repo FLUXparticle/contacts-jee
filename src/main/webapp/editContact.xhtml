@@ -38,7 +38,7 @@
             </h:panelGrid>
 
             <h:commandButton value="Update" action="#{contactBean.updateContact}" />
-            <h:commandButton value="Cancel" action="contacts?faces-redirect=true" />
+            <h:commandButton value="Cancel" action="#{contactBean.cancelEdit}" />
         </h:form>
     </h:body>
 </f:view>

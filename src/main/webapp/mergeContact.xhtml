@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{contactBean.ensureMergeContext}" />
+    </f:metadata>
+
+    <h:head>
+        <title>Conflict Resolution</title>
+    </h:head>
+    <h:body>
+        <h:form id="mergeForm">
+            <h:messages id="messages" />
+
+            <h:panelGroup id="myVersion" layout="block">
+                <h:panelGrid columns="4" border="1" cellpadding="8">
+                    <h:outputText value="ID" />
+                    <h:outputText value="#{contactBean.contact.id}" />
+                    <h:outputText value="" />
+                    <h:outputText value="#{contactBean.databaseContact.id}" />
+
+                    <h:outputText value="Version" />
+                    <h:outputText value="#{contactBean.contact.version}" />
+                    <h:outputText value="" />
+                    <h:outputText value="#{contactBean.databaseContact.version}" />
+
+                    <h:outputText value="Name" />
+                    <h:inputText id="name" value="#{contactBean.contact.name}" required="true" />
+                    <h:commandButton value="&lt;&lt;" action="#{contactBean.adoptDatabaseName}">
+                        <f:ajax execute="@this" render="myVersion messages" />
+                    </h:commandButton>
+                    <h:outputText value="#{contactBean.databaseContact.name}" />
+
+                    <h:outputText value="Email" />
+                    <h:inputText id="email" value="#{contactBean.contact.email}" required="true" />
+                    <h:commandButton value="&lt;&lt;" action="#{contactBean.adoptDatabaseEmail}">
+                        <f:ajax execute="@this" render="myVersion messages" />
+                    </h:commandButton>
+                    <h:outputText value="#{contactBean.databaseContact.email}" />
+
+                    <h:outputText value="Address" />
+                    <h:inputTextarea id="address" value="#{contactBean.contact.address}" rows="3" cols="30" />
+                    <h:commandButton value="&lt;&lt;" action="#{contactBean.adoptDatabaseAddress}">
+                        <f:ajax execute="@this" render="myVersion messages" />
+                    </h:commandButton>
+                    <h:outputText value="#{contactBean.databaseContact.address}" />
+                </h:panelGrid>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block" style="margin-top:15px;">
+                <h:commandButton value="Save merged version" action="#{contactBean.retryUpdateContact}" />
+                <h:commandButton value="Use all DB values" action="#{contactBean.adoptAllDatabaseFields}">
+                    <f:ajax execute="@this" render="myVersion messages" />
+                </h:commandButton>
+                <h:commandButton value="Cancel" action="#{contactBean.cancelMerge}" immediate="true" />
+            </h:panelGroup>
+        </h:form>
+    </h:body>
+</f:view>
+</html>
