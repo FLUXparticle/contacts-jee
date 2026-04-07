@@ -15,6 +15,9 @@ public class ContactService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ContactService.class);
 
     @Inject
+    private EmailService emailService;
+
+    @Inject
     private ContactDAO contactDAO;
 
     @Inject
@@ -35,6 +38,7 @@ public class ContactService {
 
     public void updateContact(Contact contact) throws OptimisticLockException {
         LOGGER.info("updateContact({})", contact);
+        emailService.sendEmail(contact.getEmail());
         contactDAO.update(contact);
     }
 
